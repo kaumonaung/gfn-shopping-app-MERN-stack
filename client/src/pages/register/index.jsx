@@ -1,12 +1,15 @@
 import axios from 'axios';
 
-import { Link } from 'react-router-dom';
-
 import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../../lib/AuthProvider';
 
 function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const { setUser } = useAuth();
 
   const handleCreateAccount = async (event) => {
     event.preventDefault(); // Standardverhalten wollen wir vermeiden (Seite wird neu geladen)
@@ -26,7 +29,15 @@ function Register() {
         data
       );
 
-      console.log(response.data);
+      const user = response.data;
+
+      if (!user) {
+        return; // Hier wird die Funktion abgebrochen/beendet
+      }
+
+      // Weiterleiten zur Login-Seite, wenn ein User erfolgreich erstellt wird
+      setUser(user);
+      navigate('/login');
     } catch (error) {
       console.log(error);
     }

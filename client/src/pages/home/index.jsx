@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
+import Navbar from '../../components/Navbar';
 
 function Home() {
   return (
     <div>
+      <Navbar />
+
       <main>
         <h1>Welcome to our Shopping List Manager!</h1>
 

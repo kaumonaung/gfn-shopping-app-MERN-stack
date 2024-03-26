@@ -23,6 +23,10 @@ app.use(
 const authRouter = require('./routes/auth.routes');
 app.use('/auth', authRouter);
 
+// Shopping List Router
+const shoppingListRouter = require('./routes/shoppingList.routes');
+app.use('/shopping-list', shoppingListRouter);
+
 // Verbindung zu MongoDB
 mongoose
   .connect(process.env.MONGODB_CONNECTION_STRING, {

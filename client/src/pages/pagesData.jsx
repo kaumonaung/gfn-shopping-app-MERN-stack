@@ -3,6 +3,7 @@ import About from './about';
 import Login from './login';
 import Register from './register';
 import Dashboard from './dashboard';
+import NewShoppingList from './new-shopping-list';
 
 import { Outlet, Navigate } from 'react-router-dom';
 import { useAuth } from '../lib/AuthProvider';
@@ -54,7 +55,7 @@ export const protectedRoutes = [
       },
       {
         path: 'new',
-        element: <h1>New Shopping List</h1>,
+        element: <NewShoppingList />,
       },
       {
         path: 'edit/:id',

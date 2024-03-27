@@ -33,7 +33,11 @@ const getShoppingListsById = async (req, res) => {
     }
 
     res.status(200).json(list);
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json({
+      message: 'Etwas ist schief gelaufen bei der Abfrage einer Shopping-Liste',
+    });
+  }
 };
 
 // POST (neue Shopping Liste erstellen)

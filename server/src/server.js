@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const express = require('express');
 const app = express();
@@ -18,6 +19,9 @@ app.use(
     credentials: true,
   })
 );
+
+// Stellen Express so ein, dass wir Cookies parsen können
+app.use(cookieParser());
 
 // Auth Router
 const authRouter = require('./routes/auth.routes');

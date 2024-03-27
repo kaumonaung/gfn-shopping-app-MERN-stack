@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 import Appbar from '../../components/Appbar';
+import ShoppingListCard from '../../components/ShoppingListCard';
 
 import { useEffect } from 'react';
 
@@ -17,8 +18,6 @@ function Dashboard() {
       });
 
       const data = response.data;
-
-      console.log(data);
 
       setShoppingLists(data);
     } catch (error) {
@@ -37,10 +36,7 @@ function Dashboard() {
       <h1>Dashboard</h1>
 
       {shoppingLists.map((list) => (
-        <div>
-          <h2>{list.name}</h2>
-          <p>{list.items[0]}</p>
-        </div>
+        <ShoppingListCard key={list._id} {...list} />
       ))}
     </div>
   );

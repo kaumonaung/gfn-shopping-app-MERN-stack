@@ -4,12 +4,8 @@ const ShoppingList = require('../models/ShoppingList.schema');
 const getShoppingLists = async (req, res) => {
   const { id } = req.authenticatedUser;
 
-  console.log(id);
-
   try {
     const lists = await ShoppingList.find({ userId: id });
-
-    console.log(lists);
 
     res.status(200).json(lists);
   } catch (error) {
@@ -20,7 +16,7 @@ const getShoppingLists = async (req, res) => {
 };
 
 // GET by ID (eine bestimmte Shopping Liste für den User)
-const getShoppingListsById = async (req, res) => {
+const getShoppingListById = async (req, res) => {
   const shoppingListId = req.params.id;
 
   try {
@@ -64,14 +60,52 @@ const createShoppingList = async (req, res) => {
 };
 
 // PUT (eine Shopping Liste updaten)
-const updateShoppingList = async (req, res) => {};
+const updateShoppingList = async (req, res) => {
+  const { id, name, items } = req.body;
+
+  try {
+    // Shopping Liste anhand der ID in der Datenbank (MongoDB) suchen
+    const shoppingList = await ShoppingList.findById(id);
+
+    if (!shoppingList) {
+      return res.status(404).json({
+        message: 'Shopping List wurde nicht gefunden',
+      });
+    }
+
+    shoppingList.name = name;
+    shoppingList.items = items;
+
+    await shoppingList.save();
+
+    res.json(shoppingList);
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Die Shopping Liste konnte nicht gespeichert werden',
+    });
+  }
+};
 
 // DELETE (eine Shopping Liste löschen)
-const deleteShoppingList = async (req, res) => {};
+const deleteShoppingList = async (req, res) => {
+  const { shoppingListId } = req.params;
+
+  try {
+    await ShoppingList.deleteOne({ _id: shoppingListId });
+
+    res.status(200).json({
+      message: 'Shopping Liste wurde erfolgreich gelöscht',
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Shopping Liste konnte nicht gelöscht werden',
+    });
+  }
+};
 
 module.exports = {
   getShoppingLists,
-  getShoppingListsById,
+  getShoppingListById,
   createShoppingList,
   updateShoppingList,
   deleteShoppingList,

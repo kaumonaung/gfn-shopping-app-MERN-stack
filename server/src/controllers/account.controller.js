@@ -1,11 +1,14 @@
 const User = require('../models/User.schema');
+const ShoppingList = require('../models/ShoppingList.schema');
+const bcrypt = require('bcrypt');
 
 // PUT Request
 const updateAccount = async (req, res) => {
-  const { userId, updatePassword, newUsername, newPassword } = req.body;
+  const { hasUpdatedPassword, newUsername, newPassword } = req.body;
+  const { id: userId } = req.authenticatedUser;
 
   try {
-    // User in der Datenbank suchen
+    // User/Account in der Datenbank suchen
     const user = await User.findById(userId);
 
     if (!user) {
@@ -15,10 +18,18 @@ const updateAccount = async (req, res) => {
     }
 
     // Überprüfen ob das Passwort aktualisiert werden soll
-    if (updatePassword) {
+    if (hasUpdatedPassword) {
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+      user.password = hashedPassword;
+      user.username = newUsername;
+
+      await user.save();
+      res.status(200).json(user);
     } else {
       user.username = newUsername;
       await user.save();
+      res.status(200).json(user);
     }
   } catch (error) {
     return res.status(500).json({
@@ -28,7 +39,24 @@ const updateAccount = async (req, res) => {
 };
 
 // DELETE Request
-const deleteAccount = async (req, res) => {};
+const deleteAccount = async (req, res) => {
+  const { id: userId } = req.authenticatedUser;
+
+  try {
+    await User.deleteOne({ _id: userId });
+    await ShoppingList.deleteMany({ userId: userId });
+
+    return res.status(200).json({
+      message: 'Der Account wurde erfolgreich gelöscht',
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Der Account konnte nicht gelöscht werden',
+      error: true,
+    });
+  }
+};
 
 module.exports = {
   updateAccount,

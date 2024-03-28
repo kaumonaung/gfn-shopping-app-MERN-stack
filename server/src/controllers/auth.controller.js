@@ -10,7 +10,10 @@ const login = async (req, res) => {
     const user = await User.findOne({ username: username });
 
     if (!user) {
-      return res.status(404).send('User nicht gefunden');
+      return res.status(404).json({
+        message: 'Der User konnte nicht gefunden werden',
+        error: true,
+      });
     }
 
     // Wir vergleichen das Passwort über unser Schema
@@ -19,6 +22,7 @@ const login = async (req, res) => {
     if (!hasCorrectPassword) {
       return res.status(401).json({
         message: 'Falsche Login-Daten',
+        error: true,
       });
     }
 
@@ -37,10 +41,14 @@ const login = async (req, res) => {
 
     res.status(200).json({
       user: userData,
+      error: false,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).send('Etwas ist schief gelaufen');
+    res.status(500).json({
+      message: 'Etwas ist schief gelaufen',
+      error: true,
+    });
   }
 };
 

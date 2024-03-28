@@ -11,3 +11,5 @@ const {
 router.put('/update', verifyToken, updateAccount);
 
 router.delete('/delete', verifyToken, deleteAccount);
+
+module.exports = router;

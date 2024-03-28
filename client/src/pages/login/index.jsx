@@ -7,6 +7,8 @@ import { useAuth } from '../../lib/AuthProvider';
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+
   const navigate = useNavigate();
 
   const { setUser } = useAuth();
@@ -41,7 +43,9 @@ function Login() {
       setUser(user);
       navigate('/dashboard');
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      const data = error.response.data;
+      setMessage(data.message);
     }
   };
 
@@ -83,6 +87,8 @@ function Login() {
             </div>
 
             <button type="submit">Sign In</button>
+
+            {message && <p>{message}</p>}
           </form>
         </div>
 

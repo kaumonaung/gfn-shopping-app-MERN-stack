@@ -1,3 +1,4 @@
+import styles from './dashboard.module.css';
 import axios from 'axios';
 
 import { useState } from 'react';
@@ -33,11 +34,11 @@ function Dashboard() {
     <div>
       <Appbar />
 
-      <h1>Dashboard</h1>
-
-      {shoppingLists.map((list) => (
-        <ShoppingListCard key={list._id} {...list} />
-      ))}
+      <div className={styles['wrapper']}>
+        {shoppingLists.map((list) => (
+          <ShoppingListCard key={list._id} {...list} />
+        ))}
+      </div>
     </div>
   );
 }

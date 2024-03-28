@@ -1,3 +1,4 @@
+import styles from './editShoppingList.module.css';
 import axios from 'axios';
 
 import Appbar from '../../components/Appbar';
@@ -121,16 +122,17 @@ function EditShoppingList() {
     <div>
       <Appbar />
 
-      <h1>Edit Shopping List</h1>
+      <h1 className={styles['heading']}>Edit Shopping List</h1>
 
-      <form onSubmit={saveShoppingList}>
+      <form className={styles['form']} onSubmit={saveShoppingList}>
         <div>
           <label htmlFor="shoppingListName">Shopping List Name</label>
-          <div>
+          <div className={styles['input-wrapper']}>
             <input
               type="text"
               id="shoppingListName"
               value={shoppingListName}
+              className={styles['input']}
               onChange={(e) => setShoppingListName(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -142,11 +144,11 @@ function EditShoppingList() {
         </div>
 
         <div>
-          <h2>Add items</h2>
+          <h2 className={styles['heading-2']}>Add items</h2>
 
-          <ul>
+          <ul className={styles['list']}>
             {items.map((item, index) => (
-              <li key={index}>
+              <li key={index} className={styles['list-item']}>
                 <input
                   type="text"
                   value={item}
@@ -161,14 +163,15 @@ function EditShoppingList() {
         </div>
 
         <div>
-          <div>
-            <div>
+          <div className={styles['add-item-wrapper']}>
+            <div className={styles['add-item-container']}>
               <label htmlFor="itemName">Item Name</label>
-              <div>
+              <div className={styles['input-wrapper']}>
                 <input
                   type="text"
                   id="itemName"
                   value={itemName}
+                  className={styles['input']}
                   onChange={(e) => setItemName(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
@@ -179,18 +182,28 @@ function EditShoppingList() {
                 />
               </div>
             </div>
-          </div>
 
-          <button type="button" onClick={addItem}>
-            Add Item
-          </button>
+            <button
+              className={styles['add-item-btn']}
+              type="button"
+              onClick={addItem}
+            >
+              Add Item
+            </button>
+          </div>
         </div>
 
-        <div>
-          <button type="button" onClick={deleteShoppingList}>
+        <div className={styles['btn-container']}>
+          <button
+            className={styles['delete-btn']}
+            type="button"
+            onClick={deleteShoppingList}
+          >
             Delete List
           </button>
-          <button type="submit">Save List</button>
+          <button className={styles['save-btn']} type="submit">
+            Save List
+          </button>
         </div>
       </form>
     </div>

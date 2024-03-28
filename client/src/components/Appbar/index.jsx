@@ -1,3 +1,5 @@
+import styles from './appbar.module.css';
+
 import axios from 'axios';
 
 import { Link } from 'react-router-dom';
@@ -23,15 +25,19 @@ function Appbar() {
 
   return (
     <header>
-      <nav>
-        <div>
-          <button onClick={handleLogout}>Logout</button>
+      <nav className={styles['navbar']}>
+        <div className={styles['links-container']}>
+          <button className={styles['logout-btn']} onClick={handleLogout}>
+            Logout
+          </button>
         </div>
 
-        <div>
+        <div className={styles['links-container']}>
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/dashboard/account">Account</Link>
-          <Link to="/dashboard/new">Add List</Link>
+          <Link className={styles['add-list-btn']} to="/dashboard/new">
+            Add List
+          </Link>
         </div>
       </nav>
     </header>

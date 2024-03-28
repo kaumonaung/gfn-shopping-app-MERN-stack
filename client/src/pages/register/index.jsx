@@ -1,3 +1,4 @@
+import styles from './register.module.css';
 import axios from 'axios';
 
 import { useState } from 'react';
@@ -44,57 +45,81 @@ function Register() {
   };
 
   return (
-    <main className="page-wrapper">
-      <div className="sign-up-wrapper">
-        <div className="sign-up-container">
+    <main className={styles['page-wrapper']}>
+      <div className={styles['sign-up-wrapper']}>
+        <div className={styles['sign-up-container']}>
           <div>
-            <h2>Sign up for your account</h2>
+            <h2 className={styles['h2']}>Sign up for your account</h2>
 
-            <p>
-              Already a member? <Link to="/login">Login to your account</Link>
+            <p className={styles['link-text']}>
+              Already a member?{' '}
+              <Link className={styles['link-a-tag']} to="/login">
+                Login to your account
+              </Link>
             </p>
           </div>
 
-          <form onSubmit={(event) => handleCreateAccount(event)}>
+          <div className={styles['form-wrapper']}>
             <div>
-              <label htmlFor="username">Username</label>
+              <form
+                className={styles['form']}
+                onSubmit={(event) => handleCreateAccount(event)}
+              >
+                <div>
+                  <label htmlFor="username">Username</label>
 
-              <div className="input-wrapper">
-                <input
-                  id="username"
-                  type="text"
-                  name="username"
-                  autoComplete="username"
-                  value={username}
-                  onChange={(event) => setUsername(event.target.value)}
-                />
-              </div>
+                  <div className={styles['input-wrapper']}>
+                    <input
+                      id="username"
+                      type="text"
+                      name="username"
+                      autoComplete="username"
+                      className={styles['input']}
+                      value={username}
+                      onChange={(event) => setUsername(event.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="password">Password</label>
+
+                  <div className={styles['input-wrapper']}>
+                    <input
+                      id="password"
+                      type="password"
+                      name="password"
+                      autoComplete="current-password"
+                      className={styles['input']}
+                      value={password}
+                      onChange={(event) => setPassword(event.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <button className={styles['button']} type="submit">
+                    Create Account
+                  </button>
+                </div>
+              </form>
             </div>
-
-            <div>
-              <label htmlFor="password">Password</label>
-
-              <div className="input-wrapper">
-                <input
-                  id="password"
-                  type="password"
-                  name="password"
-                  autoComplete="current-password"
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                />
-              </div>
-            </div>
-
-            <div>
-              <button type="submit">Create Account</button>
-            </div>
-          </form>
+          </div>
         </div>
 
-        <div className="home-link">
-          <Link to="/">Back to Home</Link>
+        <div className={styles['home-link']}>
+          <Link className={styles['link-a-tag']} to="/">
+            Back to Home
+          </Link>
         </div>
+      </div>
+
+      <div className={styles['img-wrapper']}>
+        <img
+          src="https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?auto=format&fit=crop&w=1908&q=80"
+          alt="Caesar Salad"
+          className={styles['img']}
+        />
       </div>
     </main>
   );

@@ -1,3 +1,4 @@
+import styles from './account.module.css';
 import axios from 'axios';
 
 import Appbar from '../../components/Appbar';
@@ -99,17 +100,18 @@ function Account() {
     <div>
       <Appbar />
 
-      <main>
-        <h1>Your Account</h1>
+      <main className={styles['wrapper']}>
+        <h1 className={styles['heading']}>Your Account</h1>
 
-        <form onSubmit={handleSaveAccount}>
+        <form className={styles['form']} onSubmit={handleSaveAccount}>
           <div>
             <label htmlFor="username">Username</label>
 
-            <div className="input-wrapper">
+            <div className={styles['input-wrapper']}>
               <input
                 type="text"
                 id="username"
+                className={styles['input']}
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
@@ -119,10 +121,11 @@ function Account() {
           <div>
             <label htmlFor="password">New Password</label>
 
-            <div className="input-wrapper">
+            <div className={styles['input-wrapper']}>
               <input
                 type="password"
                 id="password"
+                className={styles['input']}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -132,24 +135,31 @@ function Account() {
           <div>
             <label htmlFor="password-confirmation">Confirm new password</label>
 
-            <div className="input-wrapper">
+            <div className={styles['input-wrapper']}>
               <input
                 type="password"
                 id="password-confirmation"
+                className={styles['input']}
                 value={passwordConfirmation}
                 onChange={(e) => setPasswordConfirmation(e.target.value)}
               />
             </div>
           </div>
 
-          <button type="submit">Save Account</button>
+          <button className={styles['save-btn']} type="submit">
+            Save Account
+          </button>
         </form>
 
-        <button type="button" onClick={handleDeleteAccount}>
+        <button
+          className={styles['delete-btn']}
+          type="button"
+          onClick={handleDeleteAccount}
+        >
           Delete Account
         </button>
 
-        {message && <p>{message}</p>}
+        {message && <p className={styles['alert-message']}>{message}</p>}
       </main>
     </div>
   );

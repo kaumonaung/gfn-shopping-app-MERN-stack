@@ -1,3 +1,4 @@
+import styles from './login.module.css';
 import axios from 'axios';
 
 import { useState } from 'react';
@@ -50,21 +51,26 @@ function Login() {
   };
 
   return (
-    <main>
-      <h1>Sign in to your account!</h1>
+    <main className={styles['page-wrapper']}>
+      <h1 className={styles['heading']}>Sign in to your account!</h1>
 
-      <div className="card-wrapper">
-        <div className="card">
-          <form onSubmit={(event) => handleLogin(event)}>
+      <div className={styles['card-wrapper']}>
+        <div className={styles['card']}>
+          <form
+            className={styles['form']}
+            onSubmit={(event) => handleLogin(event)}
+          >
             <div>
               <label htmlFor="username">Username</label>
 
-              <div className="input-wrapper">
+              <div className={styles['input-wrapper']}>
                 <input
                   id="username"
                   type="text"
                   name="username"
                   autoComplete="username"
+                  placeholder="Enter your username"
+                  className={styles['input']}
                   value={username}
                   onChange={(event) => setUsername(event.target.value)}
                 />
@@ -74,31 +80,41 @@ function Login() {
             <div>
               <label htmlFor="password">Password</label>
 
-              <div className="input-wrapper">
+              <div className={styles['input-wrapper']}>
                 <input
                   id="password"
                   type="password"
                   name="password"
                   autoComplete="current-password"
+                  placeholder="Enter your password"
+                  className={styles['input']}
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </div>
             </div>
 
-            <button type="submit">Sign In</button>
+            <button className={styles['button']} type="submit">
+              Sign In
+            </button>
 
-            {message && <p>{message}</p>}
+            {message && <p className={styles['error']}>{message}</p>}
           </form>
         </div>
 
-        <div>
-          <p>
-            Not a member? <Link to="/register">Register</Link>
+        <div className={styles['links-wrapper']}>
+          <p className={styles['links-text']}>
+            Not a member?{' '}
+            <Link className={styles['links-a-tag']} to="/register">
+              Register
+            </Link>
           </p>
 
-          <p>
-            Going back? <Link to="/">Homepage</Link>
+          <p className={styles['links-text']}>
+            Going back?{' '}
+            <Link className={styles['links-a-tag']} to="/">
+              Homepage
+            </Link>
           </p>
         </div>
       </div>
